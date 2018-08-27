@@ -1,0 +1,24 @@
+
+<div class="grp1">
+    <label for="text">Add Category</label><br>
+    <div class="input-group mb-3">
+        <input #category type="text" aria-label="Category Name" aria-describedby="button-addon2" size="77">
+        <div class="input-group-append col-2">
+          <button (onclick)="addCategory(category.value)" class="btn btn-secondary w-50" type="button" id="button-addon2">+</button>
+        </div>
+      </div>
+</div>
+
+<ul *ngFor="let category of categories" class="list-group">
+ <div class="input-group mb-2">  
+  <li class="list-group-item w-50 mb-4">{{category}}</li>
+      <div class="input-group-append">  
+        <div class="btn-group mb-4 col-4" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary">Edit</button>
+        </div>
+        <div class="btn-group mb-4 mw-4 w-25 col-6" role="group" aria-label="Second group">
+            <button type="button" class="btn btn-secondary">Delete</button>
+        </div>  
+      </div>
+      </div>
+</ul>
