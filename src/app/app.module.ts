@@ -7,6 +7,7 @@ import { CreateWorkoutComponent } from './components/create-workout/create-worko
 import { WorkoutCategoryComponent } from './components/workout-category/workout-category.component';
 import { WorkoutTrackComponent } from './components/workout-track/workout-track.component';
 import {appRouting} from './app.routing'
+import { HttpModule } from '@angular/http'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import {appRouting} from './app.routing'
     WorkoutTrackComponent
   ],
   imports: [
-    BrowserModule,appRouting
+    BrowserModule,appRouting,HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
