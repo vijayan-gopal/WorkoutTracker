@@ -8,6 +8,7 @@ import {Category} from '../category'
   template: `
   <div class="grp1">
     <label for="text">Add Category</label><br>
+    
     <form>
     <div class="input-group mb-3">
         <input id="catIn" type="text" #category (change)="0" aria-label="Category Name" aria-describedby="button-addon2" size="97">
@@ -16,7 +17,14 @@ import {Category} from '../category'
         </div>
     </div>
     </form>
-   </div>
+  </div>
+
+<div *ngIf="succ_message != ''" class="alert alert-success" role="alert">
+  {{succ_message}}
+</div>
+<div *ngIf="err_message != ''" class="alert alert-warning" role="alert">
+  {{err_message}}
+</div>
 
 <ul *ngFor="let category of categories" class="list-group">
  <div class="input-group mb-2">  
@@ -35,7 +43,9 @@ import {Category} from '../category'
   styleUrls: ['./workout-category.component.css']
 })
 export class WorkoutCategoryComponent implements OnInit {
-  categories
+  categories = []
+  succ_message: string = ''
+  err_message: string = ''
   constructor(private http: Http) { }
 
   ngOnInit() {
@@ -46,24 +56,34 @@ export class WorkoutCategoryComponent implements OnInit {
   }
 
   addCategory(category){
+    this.succ_message = ''
+    this.err_message = ''
     this.http.post('http://localhost:3000/add',{"category_name":category}).toPromise()
     .then((data)=>{
+      this.succ_message = JSON.parse(data['_body']).message
       this.http.get('http://localhost:3000/').toPromise()
       .then((data)=>{
         this.categories = JSON.parse(data['_body'])
-        document.getElementById('catIn')
-        console.log(document.getElementById('catIn')) 
-      });
-    })
+//        document.getElementById('catIn')
+//        console.log(document.getElementById('catIn')) 
+      }).catch((data)=>{
+        this.err_message = JSON.parse(data._body).message})
+    }).catch((data)=>{
+      this.err_message = JSON.parse(data._body).message})
   };
 
   deleteCategory(category){
+   this.succ_message = ''
+   this.err_message = ''
    this.http.post('http://localhost:3000/delete',{"category_name":category}).toPromise()
    .then((data)=>{
+      this.succ_message = JSON.parse(data['_body']).message
       this.http.get('http://localhost:3000/').toPromise()
       .then((data)=>{
         this.categories = JSON.parse(data['_body'])
-      });
-    })
+      }).catch((data)=>{
+        this.err_message = JSON.parse(data._body).message})
+    }).catch((data)=>{
+      this.err_message = JSON.parse(data._body).message})
   };
 }
