@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import {Category} from '../category'
+import { WorkoutService } from '../services/workout.service';
 
 
 @Component({
@@ -46,44 +46,41 @@ export class WorkoutCategoryComponent implements OnInit {
   categories = []
   succ_message: string = ''
   err_message: string = ''
-  constructor(private http: Http) { }
+  constructor(private http: Http,private workoutservice: WorkoutService) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3000/').toPromise()
-    .then((data)=>{
-      this.categories = JSON.parse(data['_body'])
+    this.workoutservice.getWorkout()
+    .then(res=>{
+      this.categories = res.json()
     })
   }
 
   addCategory(category){
     this.succ_message = ''
     this.err_message = ''
-    this.http.post('http://localhost:3000/add',{"category_name":category}).toPromise()
-    .then((data)=>{
-      this.succ_message = JSON.parse(data['_body']).message
-      this.http.get('http://localhost:3000/').toPromise()
-      .then((data)=>{
-        this.categories = JSON.parse(data['_body'])
-//        document.getElementById('catIn')
-//        console.log(document.getElementById('catIn')) 
-      }).catch((data)=>{
-        this.err_message = JSON.parse(data._body).message})
-    }).catch((data)=>{
-      this.err_message = JSON.parse(data._body).message})
+    this.workoutservice.addWorkout(category)
+    .then(res=>{
+        this.succ_message = res.json().message
+        this.workoutservice.getWorkout()
+        .then(res=>{
+              this.categories = res.json()
+         }).catch(res=>{
+              this.err_message = res.json().message})
+      }).catch(res=>{
+              this.err_message = res.json().message})
   };
 
   deleteCategory(category){
    this.succ_message = ''
    this.err_message = ''
-   this.http.post('http://localhost:3000/delete',{"category_name":category}).toPromise()
-   .then((data)=>{
-      this.succ_message = JSON.parse(data['_body']).message
-      this.http.get('http://localhost:3000/').toPromise()
-      .then((data)=>{
-        this.categories = JSON.parse(data['_body'])
-      }).catch((data)=>{
-        this.err_message = JSON.parse(data._body).message})
-    }).catch((data)=>{
-      this.err_message = JSON.parse(data._body).message})
+   this.workoutservice.removeWorkout(category) 
+   .then(res=>{this.succ_message = res.json().message
+      this.workoutservice.getWorkout()
+      .then(res=>{
+        this.categories = res.json()
+      }).catch(res=>{
+        this.err_message = res.json().message})
+    }).catch(res=>{
+        this.err_message = res.json().message})
   };
 }
