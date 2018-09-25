@@ -1,3 +1,39 @@
-<p>
-  view-all-workout works!
-</p>
+<style>
+  .btn-len{
+    width: 78px;
+  }
+  .li-box-len{
+    width: 340px;
+  }
+  .li-box-ht{
+    max-height: 40px;
+  }
+  .border-indigo{
+    border-width: 1 10px;
+    border-style: solid;
+    border-color: indigo;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+    width: 27%;
+    margin: 0 0 3px 0
+  }
+
+</style>
+<ul class="list-group border-indigo" *ngFor="let workout of workout_collection">
+  <li class="list-group-item li-box-len li-box-ht">{{workout.workout_title}}</li><br>
+  <li class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-secondary btn-len">Edit</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+      <button type="button" class="btn btn-secondary btn-len">Delete</button>
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Third group">
+      <button type="button" class="btn btn-secondary btn-len">Start</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Fourth group">
+      <button type="button" class="btn btn-secondary btn-len">End</button>
+    </div>
+  </li>
+</ul>

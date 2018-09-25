@@ -1,3 +1,70 @@
-<p>
-  create-workout works!
-</p>
+<style>
+h2{
+  margin-left: 15px;
+}
+form{
+  margin-left: 15px;
+  margin-bottom: 10px
+}
+.title{
+  margin-left: 40px;
+  width: 25%
+}
+.note{
+  margin-left: 35px;
+  width: 25%;
+  height: 100px
+}
+
+.calories{
+  width: 12%;
+  max-height: 40px
+}
+.button{
+  margin-left: 2px;
+  max-height: 35px
+}
+
+.category{
+  margin-left: 3px;
+  width: 25%
+}
+
+.category-in{
+  margin-left: 10px;
+  width: 55%
+}
+
+.sub-btn{
+margin-left: 50px; 
+width: 20%;
+}
+
+</style>
+
+<h2>Add Workout</h2>
+<form action="/action_page.php" method="get">
+  Title: <input class="title" type="text" #title name="workout title"><br><br>
+  Note: <input class="note" type="text" #note name="workout note"><br><br>
+  Calories Burnt Per Min: <input id="calvalue" class="calories" type="text" #calories (change)="0" aria-label="Calories Burnt" aria-describedby="button-addon2" size="10">
+  <button (click)="incrementCalories()" class="btn btn-secondary button" type="button" id="button-addon2">+</button>
+  <button (click)="decrementCalories(calories.value)" class="btn btn-secondary button" type="button" id="button-addon2">-</button><br>
+  <br>
+  <div class="input-group category">
+    Category: 
+    <input type="text" #category class="form-control category-in" aria-label="Text input with dropdown button">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+      <button (click)="addCategory(category.value)" class="btn btn-secondary button" type="button" id="button-addon2">+</button>
+    </div>
+  </div>
+  <br>
+  <input class="sub-btn" type="submit" value="Add Workout">
+</form>
