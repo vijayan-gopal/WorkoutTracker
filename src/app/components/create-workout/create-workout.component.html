@@ -7,11 +7,11 @@ form{
   margin-bottom: 10px
 }
 .title{
-  margin-left: 40px;
+  margin-left: 43px;
   width: 25%
 }
 .note{
-  margin-left: 35px;
+  margin-left: 39px;
   width: 25%;
   height: 100px
 }
@@ -36,35 +36,47 @@ form{
 }
 
 .sub-btn{
-margin-left: 50px; 
+margin-left: 85px; 
 width: 20%;
 }
 
+.drop-dwn{
+width: 25%;
+height: 35px
+}
+.pls-btn{
+  margin-left: 2px;
+  max-height: 35px
+}
 </style>
-
-<h2>Add Workout</h2>
-<form action="/action_page.php" method="get">
-  Title: <input class="title" type="text" #title name="workout title"><br><br>
-  Note: <input class="note" type="text" #note name="workout note"><br><br>
-  Calories Burnt Per Min: <input id="calvalue" class="calories" type="text" #calories (change)="0" aria-label="Calories Burnt" aria-describedby="button-addon2" size="10">
+<form #categoryForm="ngForm" (ngSubmit)="addWorkout(categoryForm)">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Add Workout</h2>
+  </div>
+<div class="panel-body">
+  <label for="title">Title:</label>
+  <input id="title" class="title" type="text" [(ngModel)]="title" name="title"><br><br>
+  <label for="note">Note:</label> 
+  <input id="note" class="note" type="text" [(ngModel)]="note" name="note"><br><br>
+  <label for="calvalue">Calories Burnt Per Min:</label>
+  <input id="calvalue" class="calories" type="text" [(ngModel)]="calvalue" name="calvalue" (change)="0" aria-label="Calories Burnt" aria-describedby="button-addon2" size="10">
   <button (click)="incrementCalories()" class="btn btn-secondary button" type="button" id="button-addon2">+</button>
   <button (click)="decrementCalories(calories.value)" class="btn btn-secondary button" type="button" id="button-addon2">-</button><br>
   <br>
-  <div class="input-group category">
-    Category: 
-    <input type="text" #category class="form-control category-in" aria-label="Text input with dropdown button">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div role="separator" class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-      </div>
-      <button (click)="addCategory(category.value)" class="btn btn-secondary button" type="button" id="button-addon2">+</button>
-    </div>
+  <div class="form-group">
+  <label for="category">Category:</label>
+    <select  id="category" [(ngModel)]="category" name="category" class="drop-dwn">
+      <option value="default">--Select a category--</option>
+      <option class="form-control" *ngFor="let category of categories">{{category.category_name}}</option>>
+    </select>
+    <button (click)="addWorkout(title.value)" class="btn btn-secondary pls-btn" type="button" id="button-addon2">+</button>
+  </div>
   </div>
   <br>
+<div class="panel-footer">
   <input class="sub-btn" type="submit" value="Add Workout">
+</div>
+</div>
 </form>
+{{categoryForm.value | json}}

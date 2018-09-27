@@ -8,6 +8,8 @@ import { WorkoutCategoryComponent } from './components/workout-category/workout-
 import { WorkoutTrackComponent } from './components/workout-track/workout-track.component';
 import {appRouting} from './app.routing'
 import { HttpModule } from '@angular/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,7 @@ import { HttpModule } from '@angular/http'
     WorkoutTrackComponent
   ],
   imports: [
-    BrowserModule,appRouting,HttpModule
+    BrowserModule,appRouting,HttpModule,FormsModule,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

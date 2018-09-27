@@ -23,4 +23,9 @@ export class WorkoutService {
   public viewAllWorkout(): Promise<any> {
     return this.http.get('http://localhost:3000/viewallworkout').toPromise()
   };
+
+  public addWorkout(workoutDoc): Promise<any> {
+    return this.http.post('http://localhost:3000/addWorkout',{workoutDoc}).toPromise()
+    };
+  
 }
